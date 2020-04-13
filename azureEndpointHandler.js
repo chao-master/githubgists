@@ -57,6 +57,7 @@ function invoker(method,path,context){
  * @param {string=} endpoints Endpoint file to require and bind to
  */
 function bindFor(method,path,endpoints="./endpoints.js"){
+    process.on("unhandledRejection",console.error);
     return function(context){
         require(endpoints)(new Finder(method,path,context));
     }
