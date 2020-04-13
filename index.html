@@ -1,0 +1,15 @@
+<body style="white-space: pre-wrap;font-family: monospace;">
+Get a gist file: /gists/:username/:file
+    Try it: <a href="/gists/chao-master/forever.js">/gists/chao-master/forever.js</a>
+    Responses:
+        200 - Containing the gist
+        303 - A redirect to the gist
+        400 - User or file not set
+        404 - User or file not found
+View the gist that contains the file on github: /gists/:username/:file/html
+    Try it: <a href="/gists/chao-master/forever.js/html">/gists/chao-master/forever.js/html</a>
+    Responses:
+        303 - A redirect to the gist
+        400 - User or file not set
+        404 - User or file not found
+</body>

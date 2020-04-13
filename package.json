@@ -1,0 +1,18 @@
+{
+  "name": "gists",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jsdoc-parse": "^4.0.1",
+    "jsdoc-to-markdown": "^5.0.3",
+    "node-fetch": "^2.6.0",
+    "polka": "^0.5.2"
+  }
+}
