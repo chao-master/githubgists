@@ -1,0 +1,1 @@
+module.exports = require("../azureEndpointHandler.js").bindFor("get","/gists/:username/:filename/html");

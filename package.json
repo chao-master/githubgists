@@ -10,9 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "jsdoc-parse": "^4.0.1",
-    "jsdoc-to-markdown": "^5.0.3",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.0"
+  },
+  "optionalDependencies": {
     "polka": "^0.5.2"
   }
 }

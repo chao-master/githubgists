@@ -1,5 +1,7 @@
 const fs = require("fs");
 const Guard = require("./Guard.js");
+const {grab,first} = require("./tools.js")
+const {gistsWithFile} = require("./github.js")
 
 /**
  * Binds the endpoints to the passed backend
