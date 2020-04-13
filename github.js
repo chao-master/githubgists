@@ -24,3 +24,5 @@ async function* gistsWithFile(username,targetFile){
         }
     }
 }
+
+module.exports = {gistsWithFile,usersGists}
