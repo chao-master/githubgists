@@ -41,8 +41,21 @@ class Finder{
     }
 }
 
-function invoker(method,path,req,res){
-    return new Finder(method,path,req,res);
+function invoker(method,path,context){
+    return new Finder(method,path,context);
 }
 
-module.exports = {invoker}
+/**
+ * Returns a method sutiable for use as an azure function export for doing things
+ * 
+ * @param {string} method Http method to search for
+ * @param {string} path Express-like path to search for
+ * @param {string=} endpoints Endpoint file to require and bind to
+ */
+function bindFor(method,path,endpoints="endpoints.js"){
+    return function(context){
+        return require(endpoints)(new Finder(method,path,context));
+    }
+}
+
+module.exports = {invoker,bindFor}
