@@ -1,9 +1,25 @@
+class Res extends WritableStream {
+    constructor(context){
+        this.res = context.res;
+        this.res.isRaw = true;
+    }
+
+    _write(chunk, encoding, callback){
+        this.res.body += chunk;
+    }
+
+    writeHead(statusCode,headers={}){
+        this.res.status = statusCode;
+        this.res.headers = Object.assign(res.headers||{},headers);
+    }
+}
+
 class Finder{
-    constructor(method,path,req,res){
+    constructor(method,path,context){
         this.method = method;
         this.path = path;
-        this.req = req;
-        this.res = res;
+        this.req = context.req;
+        this.res = new Res(context)
     }
     check(method,path,handler){
         if (method == this.method && path == this.path){
