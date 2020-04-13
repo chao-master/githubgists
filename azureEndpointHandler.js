@@ -1,5 +1,8 @@
-class Res extends WritableStream {
+const {Writable} = require('stream');
+
+class Res extends Writable {
     constructor(context){
+        super();
         this.res = context.res;
         this.res.isRaw = true;
     }
@@ -10,7 +13,7 @@ class Res extends WritableStream {
 
     writeHead(statusCode,headers={}){
         this.res.status = statusCode;
-        this.res.headers = Object.assign(res.headers||{},headers);
+        this.res.headers = Object.assign(this.res.headers||{},headers);
     }
 }
 
@@ -19,11 +22,12 @@ class Finder{
         this.method = method;
         this.path = path;
         this.req = context.req;
-        this.res = new Res(context)
+        this.res = new Res(context);
+        this.context = context;
     }
     check(method,path,handler){
         if (method == this.method && path == this.path){
-            await handler(this.req,this.res)
+            Promise.resolve(handler(this.req,this.res)).then(_=>this.context.done())
         }
         return this;
     }
@@ -52,9 +56,9 @@ function invoker(method,path,context){
  * @param {string} path Express-like path to search for
  * @param {string=} endpoints Endpoint file to require and bind to
  */
-function bindFor(method,path,endpoints="endpoints.js"){
+function bindFor(method,path,endpoints="./endpoints.js"){
     return function(context){
-        return require(endpoints)(new Finder(method,path,context));
+        require(endpoints)(new Finder(method,path,context));
     }
 }
 

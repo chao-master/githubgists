@@ -11,7 +11,7 @@ async function* throughAll(target){
     console.log(">",target);
     while (target){
         
-        const rsp = await fetch(target,{headers});
+        const rsp = await fetch(target);
         const link = rsp.headers.get("link")
         if (link){
             const match = link.match(/<([^>]+)>; rel="next"/)
@@ -57,4 +57,4 @@ function grab(res,p){
     })
 }
 
-module.export = {throughAll,first,grab};
+module.exports = {throughAll,first,grab};
