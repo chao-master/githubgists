@@ -1,12 +1,18 @@
 const {throughAll} = require("./tools.js")
 const BASE_URL = "https://api.github.com";
 
+//Setup headers
+const auth = process.env["GITHUB_BASIC_AUTH"]
+const headers = auth?{
+    Authorization: Buffer.from(auth).toString('base64')
+}:{};
+
 /**
  * Fetches all of a user's gists
  * @param {string} username The user to lookup
  */
 function usersGists(username){
-    return throughAll(`${BASE_URL}/users/${username}/gists`);
+    return throughAll(`${BASE_URL}/users/${username}/gists`,headers);
 }
 
 /**

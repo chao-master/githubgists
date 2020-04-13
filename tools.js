@@ -7,15 +7,17 @@ const fetch = require("node-fetch");
  * @returns {AsyncIterableIterator<T>}
  * @template T
  */
-async function* throughAll(target){
+async function* throughAll(target,headers={}){
     console.log(">",target);
     while (target){
         
-        const rsp = await fetch(target);
+        const rsp = await fetch(target,{headers});
         const link = rsp.headers.get("link")
         if (link){
             const match = link.match(/<([^>]+)>; rel="next"/)
             target = match && match[1];
+        } else {
+            target = "";
         }
 
         const reply = await rsp.json();
