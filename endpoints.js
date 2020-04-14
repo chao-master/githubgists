@@ -23,8 +23,13 @@ module.exports = function(endPointEngine){
                 .write()
             ) {return}
 
-            const {file,_abort_} = await grab(res,first(gistsWithFile(username,filename)))
+            const {file,_abort_,_empty_} = await grab(res,first(gistsWithFile(username,filename)))
             if (_abort_) {return}
+            if (_empty_) {
+                res.writeHead(404);
+                res.end(`file "${filename}" not found under user "${username}"`);
+                return;
+            }
 
             if (file.truncated === false){
                 res.end(file.content);
@@ -41,8 +46,13 @@ module.exports = function(endPointEngine){
                 .write()
             ) {return}
 
-            const {gist,file,_abort_} = await grab(res,first(gistsWithFile(username,filename)))
+            const {gist,file,_abort_,_empty_} = await grab(res,first(gistsWithFile(username,filename)))
             if (_abort_) {return}
+            if (_empty_) {
+                res.writeHead(404);
+                res.end(`file "${filename}" not found under user "${username}"`);
+                return;
+            }
 
             const url = gist.html_url;
             //This is my best guess at how github generates the file slugs

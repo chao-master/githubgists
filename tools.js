@@ -37,6 +37,7 @@ async function first(asii){
     for await(const n of asii){
         return n;
     }
+    return {_empty_:true}
 }
 
 /**
@@ -51,10 +52,13 @@ async function first(asii){
 function grab(res,p){
     return p.catch(e=>{
         console.error("Error:",e)
-        if(e.apiError && e.apiErrorCode){
+
+        if (e.apiError && e.apiErrorCode)
+        {
             res.writeHead(e.apiErrorCode);
             res.end(e.apiError);
         }
+
         return {_abort_:true};
     })
 }
